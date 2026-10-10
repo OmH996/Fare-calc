@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حساب الأجرة</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <header class="hero">
+      <div class="hero-icon" aria-hidden="true">ج</div>
+      <div>
+        <p class="eyebrow">أداة حساب سريعة</p>
+        <h1>حساب الأجرة</h1>
+        <p class="hero-copy">احسب أجرة كل راكب، والمبلغ المدفوع، والباقي أو المبلغ الناقص بسهولة.</p>
+      </div>
+    </header>
+
+    <div class="entry-grid">
+    <section class="panel fare-panel" aria-labelledby="fare-heading">
+      <div class="section-heading">
+        <div>
+          <span class="step-label">الخطوة ١</span>
+          <h2 id="fare-heading">حدد الأجرة للفرد</h2>
+        </div>
+        <span class="heading-icon" aria-hidden="true">١</span>
+      </div>
+      <label for="fareInput">الأجرة المطلوبة من كل شخص</label>
+      <div class="input-with-unit">
+        <input id="fareInput" type="number" min="0.01" step="0.01" placeholder="مثال: 10" value="10" inputmode="decimal" />
+        <span>جنيه</span>
+      </div>
+      <p class="hint">غيّر الأجرة حسب المشوار، وسيتم تحديث الحسابات تلقائيًا.</p>
+    </section>
+
+    <section class="panel payment-panel" aria-labelledby="payment-heading">
+      <div class="section-heading">
+        <div>
+          <span class="step-label">الخطوة ٢</span>
+          <h2 id="payment-heading">أضف المبالغ المدفوعة</h2>
+        </div>
+        <span class="heading-icon" aria-hidden="true">٢</span>
+      </div>
+
+      <form id="paymentForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="paidInput">إجمالي المبلغ اللي دفعوه مع بعض؟</label>
+            <div class="input-with-unit">
+              <input id="paidInput" type="number" min="0" step="0.01" placeholder="مثال: 20" value="20" inputmode="decimal" />
+              <span>جنيه</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="countInput">عدد الأشخاص في المجموعة</label>
+            <input id="countInput" type="number" min="1" step="1" placeholder="مثال: 1" value="1" inputmode="numeric" />
+          </div>
+        </div>
+        <p id="formMessage" class="form-message" role="alert" aria-live="polite"></p>
+        <button class="primary-button" type="submit"><span aria-hidden="true">＋</span> إضافة المجموعة</button>
+      </form>
+      <div class="example-note">
+        <span class="note-icon" aria-hidden="true">ⓘ</span>
+        <p>مثال: الأجرة ٦٥ جنيه للفرد، وشخصين دفعوا ٢٠٠ جنيه مع بعض؛ إجمالي الأجرة ١٣٠ جنيه، والباقي ٧٠ جنيه للمجموعة.</p>
+      </div>
+    </section>
+
+    </div>
+
+    <section class="summary-section" aria-labelledby="summary-heading">
+      <div class="section-heading summary-title">
+        <div>
+          <span class="step-label">النتيجة</span>
+          <h2 id="summary-heading">ملخص الحساب</h2>
+        </div>
+      </div>
+      <div class="summary-grid">
+        <article class="summary-card">
+          <span class="summary-label">عدد الركاب</span>
+          <strong id="totalPeople">٠</strong>
+          <span class="summary-unit">شخص</span>
+        </article>
+        <article class="summary-card">
+          <span class="summary-label">إجمالي الأجرة المستحقة</span>
+          <strong id="totalFare">٠</strong>
+          <span class="summary-unit">جنيه</span>
+        </article>
+        <article class="summary-card">
+          <span class="summary-label">إجمالي الفلوس المدفوعة</span>
+          <strong id="totalPaid">٠</strong>
+          <span class="summary-unit">جنيه</span>
+        </article>
+        <article class="summary-card change-card">
+          <span class="summary-label">إجمالي الباقي للركاب</span>
+          <strong id="totalChange">٠</strong>
+          <span class="summary-unit">جنيه</span>
+        </article>
+        <article class="summary-card shortage-card">
+          <span class="summary-label">إجمالي المبلغ الناقص</span>
+          <strong id="totalShortage">٠</strong>
+          <span class="summary-unit">جنيه</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel results-panel" aria-labelledby="results-heading">
+      <div class="results-header">
+        <div class="section-heading">
+          <div>
+            <span class="step-label">التفاصيل</span>
+            <h2 id="results-heading">تفاصيل كل مجموعة</h2>
+          </div>
+        </div>
+        <button id="clearButton" class="text-button" type="button">مسح الكل</button>
+      </div>
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon" aria-hidden="true">↙</div>
+        <p>لسه مفيش مبالغ مضافة</p>
+        <span>أضف أول مجموعة من الجزء اللي فوق عشان تظهر الحسابات هنا.</span>
+      </div>
+      <div id="resultsList" class="results-list"></div>
+    </section>
+
+    <footer>حساب الأجرة — يعمل على جهازك مباشرةً بدون تسجيل أو قاعدة بيانات.</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
